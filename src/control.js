@@ -84,6 +84,7 @@ export default class Control extends maptalks.control.Control {
       this.options.player.on('progress', this._onProgress, this)
       this.options.player.on('playing', this._onPlaying, this)
       this.options.player.on('finished', this._onPlayFinish, this)
+      this.options.player.on('setspeed', this._onSpeedChange, this)
     }
   }
 
@@ -193,19 +194,21 @@ export default class Control extends maptalks.control.Control {
     if (progress > 1) progress = 1
     if (progress < 0) progress = 0
 
-    let per = (progress * 100).toFixed(1)
-    // if (!this.speedCtlTop) per = 100 - per
-
     let sp = (this.speedCtlTop ? 1 - progress : progress)
     sp = ((this.options.speedRange[1] - this.options.speedRange[0]) * sp + this.options.speedRange[0]).toFixed(1)
-
-
-    this._domRefs.speedCtlDot.style.top = per + '%'
-    this._domRefs.speedInfo.innerText = sp + 'x'
 
     if (this.options.player) {
       this.options.player.setSpeed(sp)
     }
+  }
+
+  _onSpeedChange(e) {
+    let speed = parseFloat(e.speed)
+    this._domRefs.speedInfo.innerText = speed.toFixed(1) + 'x'
+
+    let x =((speed - this.options.speedRange[0]) / (this.options.speedRange[1] - this.options.speedRange[0]) * 100).toFixed(1)
+    if (this.speedCtlTop) x = 100 - x
+    this._domRefs.speedCtlDot.style.top = x + '%'
   }
 
   _initSpeedDotPos () {

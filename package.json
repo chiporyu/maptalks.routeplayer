@@ -1,6 +1,6 @@
 {
   "name": "@chiporyu/maptalks.routeplayer",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "The route player plugin for maptalks.js, animate with real time",
   "license": "MIT",
   "repository": {
@@ -13,7 +13,10 @@
   "files": [
     "dist/maptalks.routeplayer.js",
     "dist/maptalks.routeplayer.min.js",
-    "dist/maptalks.routeplayer.es.js"
+    "dist/maptalks.routeplayer.es.js",
+    "dist/maptalks.routeplayer.css",
+    "dist/images",
+    "examples"
   ],
   "scripts": {
     "version": "gulp minify && git add -A dist",

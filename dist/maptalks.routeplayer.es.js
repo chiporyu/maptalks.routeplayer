@@ -1,5 +1,5 @@
 /*!
- * maptalks.routeplayer v0.1.0
+ * maptalks.routeplayer v0.1.2
  * LICENSE : MIT
  * (c) 2016-2020 maptalks.org
  */
@@ -3541,6 +3541,7 @@ var Control = function (_maptalks$control$Con) {
       this.options.player.on('progress', this._onProgress, this);
       this.options.player.on('playing', this._onPlaying, this);
       this.options.player.on('finished', this._onPlayFinish, this);
+      this.options.player.on('setspeed', this._onSpeedChange, this);
     }
   };
 
@@ -3648,18 +3649,21 @@ var Control = function (_maptalks$control$Con) {
     if (progress > 1) progress = 1;
     if (progress < 0) progress = 0;
 
-    var per = (progress * 100).toFixed(1);
-    // if (!this.speedCtlTop) per = 100 - per
-
     var sp = this.speedCtlTop ? 1 - progress : progress;
     sp = ((this.options.speedRange[1] - this.options.speedRange[0]) * sp + this.options.speedRange[0]).toFixed(1);
-
-    this._domRefs.speedCtlDot.style.top = per + '%';
-    this._domRefs.speedInfo.innerText = sp + 'x';
 
     if (this.options.player) {
       this.options.player.setSpeed(sp);
     }
+  };
+
+  Control.prototype._onSpeedChange = function _onSpeedChange(e) {
+    var speed = parseFloat(e.speed);
+    this._domRefs.speedInfo.innerText = speed.toFixed(1) + 'x';
+
+    var x = ((speed - this.options.speedRange[0]) / (this.options.speedRange[1] - this.options.speedRange[0]) * 100).toFixed(1);
+    if (this.speedCtlTop) x = 100 - x;
+    this._domRefs.speedCtlDot.style.top = x + '%';
   };
 
   Control.prototype._initSpeedDotPos = function _initSpeedDotPos() {
@@ -3962,9 +3966,11 @@ var BaseRoutePlayer = function (_maptalks$Eventable) {
 
     var t = this.startTime + (this.endTime - this.startTime) * progress;
     this.setTime(t);
+    return this;
   };
 
   BaseRoutePlayer.prototype.setSpeed = function setSpeed(speed) {
+    speed = parseFloat(speed);
     this._speed = speed;
     this._resetPlayer();
 
@@ -3972,6 +3978,8 @@ var BaseRoutePlayer = function (_maptalks$Eventable) {
     if (this.played == this.duration) {
       this.finish();
     }
+
+    this.fire('setspeed', { speed: speed });
     return this;
   };
 
@@ -3985,6 +3993,7 @@ var BaseRoutePlayer = function (_maptalks$Eventable) {
     }
     this.cancel();
     this.markerLayer.remove();
+    this.ctl.remove();
     delete this.markerLayer;
     delete this.lineLayer;
     delete this._map;
@@ -4157,4 +4166,4 @@ var VectorRoutePlayer = function (_BaseRoutePlayer) {
 
 export { BaseRoutePlayer, VectorRoutePlayer, Control as RoutePlayerControl };
 
-typeof console !== 'undefined' && console.log('maptalks.routeplayer v0.1.0, requires maptalks@>=0.31.0.');
+typeof console !== 'undefined' && console.log('maptalks.routeplayer v0.1.2, requires maptalks@>=0.31.0.');

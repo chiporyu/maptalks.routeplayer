@@ -119,9 +119,11 @@ export default class BaseRoutePlayer extends maptalks.Eventable(maptalks.Class) 
     
     const t = this.startTime + (this.endTime - this.startTime) * progress
     this.setTime(t)
+    return this
   }
 
   setSpeed (speed) {
+    speed = parseFloat(speed)
     this._speed = speed
     this._resetPlayer()
 
@@ -129,6 +131,8 @@ export default class BaseRoutePlayer extends maptalks.Eventable(maptalks.Class) 
     if (this.played == this.duration) {
       this.finish()
     }
+
+    this.fire('setspeed', {speed})
     return this
   }
 
@@ -142,6 +146,7 @@ export default class BaseRoutePlayer extends maptalks.Eventable(maptalks.Class) 
     }
     this.cancel();
     this.markerLayer.remove();
+    this.ctl.remove();
     delete this.markerLayer;
     delete this.lineLayer;
     delete this._map;

@@ -3528,11 +3528,11 @@ var Control = function (_maptalks$control$Con) {
   Control.prototype._bindEvents = function _bindEvents() {
     var refs = this._domRefs;
     on(refs.playBtn, 'click', this._onPlayBtnClick, this);
-    on(refs.processRuler, 'click', this._onProcessRulerClick, this);
+    on(refs.progressRuler, 'click', this._onprogressRulerClick, this);
     on(refs.speedRuler, 'click', this._onSpeedRulerClick, this);
 
-    this.processDragger = new DragHandler(refs.processCtlDot, { 'ignoreMouseleave': true });
-    this.processDragger.on('dragging', this._onProcessDotDrag, this).enable();
+    this.progressDragger = new DragHandler(refs.progressCtlDot, { 'ignoreMouseleave': true });
+    this.progressDragger.on('dragging', this._onprogressDotDrag, this).enable();
 
     this.speedDragger = new DragHandler(refs.speedCtlDot, { 'ignoreMouseleave': true });
     this.speedDragger.on('dragging', this._onSpeedDotDrag, this).enable();
@@ -3547,11 +3547,11 @@ var Control = function (_maptalks$control$Con) {
   Control.prototype._offEvents = function _offEvents() {
     var refs = this._domRefs;
     off(refs.playBtn, 'click', this._onPlayBtnClick, this);
-    off(refs.processRuler, 'click', this._onProcessRulerClick, this);
+    off(refs.progressRuler, 'click', this._onprogressRulerClick, this);
     off(refs.speedRuler, 'click', this._onSpeedRulerClick, this);
 
-    this.processDragger.disable();
-    delete this.processDragger;
+    this.progressDragger.disable();
+    delete this.progressDragger;
 
     this.speedDragger.disable();
     delete this.speedDragger;
@@ -3561,9 +3561,9 @@ var Control = function (_maptalks$control$Con) {
     // this.timeInfo.innerText = moment(Math.floor(time.t)).format("HH:mm:ss")
     this._domRefs.timeInfo.innerText = lib_1('hh:mm:ss', new Date(time.t));
 
-    var w = this._domRefs.processRuler.clientWidth;
-    this._domRefs.processCtlDot.style.left = (w * time.d).toFixed(1) + 'px';
-    this._domRefs.process.style.width = (w * time.d).toFixed(1) + 'px';
+    var w = this._domRefs.progressRuler.clientWidth;
+    this._domRefs.progressCtlDot.style.left = (w * time.d).toFixed(1) + 'px';
+    this._domRefs.progress.style.width = (w * time.d).toFixed(1) + 'px';
   };
 
   Control.prototype._onPlaying = function _onPlaying(time) {
@@ -3597,61 +3597,61 @@ var Control = function (_maptalks$control$Con) {
     }
   };
 
-  Control.prototype._onProcessRulerClick = function _onProcessRulerClick(e) {
+  Control.prototype._onprogressRulerClick = function _onprogressRulerClick(e) {
     preventDefault(e);
-    var point = getEventContainerPoint(e, this._domRefs.processRuler);
-    var pWidth = this._domRefs.processRuler.clientWidth;
-    var process = point.x / pWidth;
+    var point = getEventContainerPoint(e, this._domRefs.progressRuler);
+    var pWidth = this._domRefs.progressRuler.clientWidth;
+    var progress = point.x / pWidth;
 
-    this._updateProcessUI(process);
+    this._updateprogressUI(progress);
   };
 
   Control.prototype._onSpeedRulerClick = function _onSpeedRulerClick(e) {
     preventDefault(e);
     var point = getEventContainerPoint(e, this._domRefs.speedRuler);
     var total = this._domRefs.speedRuler.clientHeight;
-    var process = point.y / total;
+    var progress = point.y / total;
 
-    this._updateSpeedUI(process);
+    this._updateSpeedUI(progress);
   };
 
-  Control.prototype._onProcessDotDrag = function _onProcessDotDrag(e) {
+  Control.prototype._onprogressDotDrag = function _onprogressDotDrag(e) {
     preventDefault(e.domEvent);
-    var point = getEventContainerPoint(e.domEvent, this._domRefs.processRuler);
-    var total = this._domRefs.processRuler.clientWidth;
+    var point = getEventContainerPoint(e.domEvent, this._domRefs.progressRuler);
+    var total = this._domRefs.progressRuler.clientWidth;
 
-    var process = point.x / total;
-    this._updateProcessUI(process);
+    var progress = point.x / total;
+    this._updateprogressUI(progress);
   };
 
   Control.prototype._onSpeedDotDrag = function _onSpeedDotDrag(e) {
     preventDefault(e.domEvent);
     var point = getEventContainerPoint(e.domEvent, this._domRefs.speedRuler);
     var total = this._domRefs.speedRuler.clientHeight;
-    var process = point.y / total;
-    this._updateSpeedUI(process);
+    var progress = point.y / total;
+    this._updateSpeedUI(progress);
   };
 
-  Control.prototype._updateProcessUI = function _updateProcessUI(process) {
-    if (process > 1) process = 1;
-    if (process < 0) process = 0;
-    var per = (process * 100).toFixed(1) + '%';
-    this._domRefs.process.style.width = per;
-    this._domRefs.processCtlDot.style.left = per;
+  Control.prototype._updateprogressUI = function _updateprogressUI(progress) {
+    if (progress > 1) progress = 1;
+    if (progress < 0) progress = 0;
+    var per = (progress * 100).toFixed(1) + '%';
+    this._domRefs.progress.style.width = per;
+    this._domRefs.progressCtlDot.style.left = per;
 
     if (this.options.player) {
-      this.options.player.setProcess(process);
+      this.options.player.setProgress(progress);
     }
   };
 
-  Control.prototype._updateSpeedUI = function _updateSpeedUI(process) {
-    if (process > 1) process = 1;
-    if (process < 0) process = 0;
+  Control.prototype._updateSpeedUI = function _updateSpeedUI(progress) {
+    if (progress > 1) progress = 1;
+    if (progress < 0) progress = 0;
 
-    var per = (process * 100).toFixed(1);
+    var per = (progress * 100).toFixed(1);
     // if (!this.speedCtlTop) per = 100 - per
 
-    var sp = this.speedCtlTop ? 1 - process : process;
+    var sp = this.speedCtlTop ? 1 - progress : progress;
     sp = ((this.options.speedRange[1] - this.options.speedRange[0]) * sp + this.options.speedRange[0]).toFixed(1);
 
     this._domRefs.speedCtlDot.style.top = per + '%';
@@ -3674,9 +3674,9 @@ var Control = function (_maptalks$control$Con) {
 
     var timeInfo = dom.querySelector('.time-info');
 
-    var processRuler = dom.querySelector('.time-slider .ruler');
-    var process = processRuler.querySelector('.palyed');
-    var processCtlDot = processRuler.querySelector('.slider-dot');
+    var progressRuler = dom.querySelector('.time-slider .ruler');
+    var progress = progressRuler.querySelector('.palyed');
+    var progressCtlDot = progressRuler.querySelector('.slider-dot');
 
     var speed = dom.querySelector('.speed');
     var speedInfo = speed.querySelector('.speed-info');
@@ -3686,7 +3686,7 @@ var Control = function (_maptalks$control$Con) {
 
     this._domRefs = {
       playBtn: playBtn, timeInfo: timeInfo,
-      processRuler: processRuler, process: process, processCtlDot: processCtlDot,
+      progressRuler: progressRuler, progress: progress, progressCtlDot: progressCtlDot,
       speedInfo: speedInfo, speedRuler: speedRuler, speedCtlDot: speedCtlDot, speedSlider: speedSlider
     };
   };
@@ -3852,7 +3852,7 @@ var options = {
   },
   markerSymbol: null,
   lineSymbol: {
-    lienWidth: 1,
+    lineWidth: 1,
     lineColor: 'steelblue'
   }
 };
@@ -3956,11 +3956,11 @@ var BaseRoutePlayer = function (_maptalks$Eventable) {
     return this;
   };
 
-  BaseRoutePlayer.prototype.setProcess = function setProcess(process) {
-    if (process < 0) process = 0;
-    if (process > 100) process = 100;
+  BaseRoutePlayer.prototype.setProgress = function setProgress(progress) {
+    if (progress < 0) progress = 0;
+    if (progress > 1) progress = 1;
 
-    var t = this.startTime + (this.endTime - this.startTime) * process;
+    var t = this.startTime + (this.endTime - this.startTime) * progress;
     this.setTime(t);
   };
 

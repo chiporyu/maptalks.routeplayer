@@ -11,8 +11,8 @@ The route player plugin for maptalks.js. Inspired by [maptalks.routeplayer](http
 
 * Install with npm: ```npm install @chiporyu/maptalks.routeplayer```
 * Use unpkg CDN: 
-  ```https://unpkg.com/@chiporyu/dist/maptalks.routeplayer.js```,
-  ```https://unpkg.com/@chiporyu/dist/maptalks.routeplayer.css```
+  * ```https://unpkg.com/@chiporyu/dist/maptalks.routeplayer.js```,
+  * ```https://unpkg.com/@chiporyu/dist/maptalks.routeplayer.css```
 
 ## Usage
 ```html

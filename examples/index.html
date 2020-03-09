@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Example</title>
+  <link rel="stylesheet" href="../dist/maptalks.myplugin.css">
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lodash"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/maptalks/dist/maptalks.min.js"></script>
+  <script src="../dist/maptalks.myplugin.js"></script>
+  <style>
+    html,body {padding: 0; margin: 0;}
+    .map {
+      position: absolute;
+      width: 100vw;
+      height: 100vh;
+    }
+  </style>
+</head>
+<body>
+  <div class="map" id="map"></div>
+  
+  <!-- <div class="demo" style="position: absolute; top: 200px;">
+    <div class="tc-player">
+      <div class="player-btn pause"></div>
+      <div class="time-info">00:00</div>
+      <div class="time-slider">
+        <div class="ruler">
+          <div class="palyed"></div>
+          <div class="slider-dot"></div>
+        </div>
+      </div>
+      <div class="speed">
+        <div class="speed-info">1.0x</div>
+        <div class="speed-slider">
+          <div class="ruler">
+            <div class="slider-dot"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+  <script src="./route.js"></script>
+  <script>
+    var map = new maptalks.Map('map', {
+        center: [121.505, 31.2611],
+        zoom: 14,
+        baseLayer: new maptalks.TileLayer('base', {
+          urlTemplate: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
+          subdomains: ['a','b','c','d'],
+          attribution: '&copy; <a href="http://osm.org">OpenStreetMap</a> contributors, &copy; <a href="https://carto.com/">CARTO</a>'
+        })
+      });
+
+      // var control = new maptalks.RoutePlayerControl({
+      //   position: 'bottom-left'
+      //   // position: 'top-left'
+      // });
+      // map.addControl(control);
+      
+      var player = new maptalks.VectorRoutePlayer([route, route2], map, {
+        unitTime: 1,
+        controlOptions: {
+          // position: 'top-left'
+          position: 'bottom-left'
+        }
+      })
+  </script>
+</body>
+</html>

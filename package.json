@@ -1,0 +1,45 @@
+{
+  "name": "@chiporyu/maptalks.routeplayer",
+  "version": "0.1.0",
+  "description": "The route player plugin for maptalks.js, animate with real time",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chiporyu/maptalks.routeplayer.git"
+  },
+  "main": "dist/maptalks.routeplayer.js",
+  "module": "dist/maptalks.routeplayer.es.js",
+  "jsnext:main": "dist/maptalks.routeplayer.es.js",
+  "files": [
+    "dist/maptalks.routeplayer.js",
+    "dist/maptalks.routeplayer.min.js",
+    "dist/maptalks.routeplayer.es.js"
+  ],
+  "scripts": {
+    "version": "gulp minify && git add -A dist",
+    "prepublish": "gulp minify",
+    "build": "gulp build",
+    "dev": "gulp"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.1.1",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-es2015": "^6.18.0",
+    "gulp": "^4.0.2",
+    "gulp-base64": "^0.1.3",
+    "gulp-concat": "^2.6.1",
+    "gulp-connect": "^5.7.0",
+    "gulp-sass": "^4.0.2",
+    "maptalks": ">=0.31.0",
+    "maptalks-build-helpers": "^0.4.2",
+    "rollup-plugin-babel": "3"
+  },
+  "peerDependencies": {
+    "maptalks": ">=0.31.0"
+  },
+  "dependencies": {
+    "date-format": "^3.0.0",
+    "lodash": "^4.17.15"
+  }
+}

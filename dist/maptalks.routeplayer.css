@@ -1,0 +1,81 @@
+.tc-player {
+  background-color: #34495e;
+  display: inline-block;
+  height: 29px;
+  line-height: 29px;
+  color: #fff;
+  font-size: 12px;
+  user-select: none; }
+  .tc-player > div {
+    float: left; }
+    .tc-player > div:not(:last-child) {
+      border-right: 1px solid #363539; }
+  .tc-player .player-btn {
+    width: 39px;
+    height: 29px;
+    cursor: pointer;
+    background: url("./images/play.png") no-repeat center; }
+    .tc-player .player-btn.pause {
+      background-image: url("./images/pause.png"); }
+  .tc-player .time-info {
+    width: 66px;
+    text-align: center;
+    line-height: 29px; }
+  .tc-player .slider-dot {
+    background-image: url(./images/dot.png);
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    background-repeat: no-repeat;
+    top: 0;
+    left: 3px;
+    transform: translate(-50%, -50%);
+    cursor: pointer; }
+  .tc-player .ruler {
+    border-radius: 2px;
+    cursor: pointer;
+    border-radius: 2px;
+    background-color: #372e2b;
+    position: relative; }
+  .tc-player .time-slider {
+    width: 300px;
+    height: 29px;
+    padding: 0 13px; }
+    .tc-player .time-slider .ruler {
+      width: 100%;
+      height: 5px;
+      top: calc(50% - 3px); }
+      .tc-player .time-slider .ruler .slider-dot {
+        top: 3px;
+        left: 0%; }
+      .tc-player .time-slider .ruler .palyed {
+        height: 5px;
+        width: 0%;
+        background-color: #1bbc9b; }
+  .tc-player .speed {
+    position: relative; }
+    .tc-player .speed .speed-info {
+      width: 56px;
+      text-align: center; }
+    .tc-player .speed:hover .speed-slider {
+      visibility: visible; }
+    .tc-player .speed .speed-slider {
+      visibility: hidden;
+      position: absolute;
+      background-color: #34495e;
+      width: 56px;
+      top: 0;
+      transform: translateY(-100%);
+      border-bottom: 1px solid #363539; }
+      .tc-player .speed .speed-slider.bottom {
+        top: inherit;
+        bottom: 0;
+        transform: translateY(100%);
+        border-bottom: none;
+        border-top: 1px solid #363539; }
+      .tc-player .speed .speed-slider .ruler {
+        width: 5px;
+        height: 100px;
+        margin: 15px auto; }
+      .tc-player .speed .speed-slider .slider-dot {
+        top: 100%; }

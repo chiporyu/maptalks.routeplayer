@@ -5,7 +5,7 @@ The route player plugin for maptalks.js. Inspired by [maptalks.routeplayer](http
 
 ## Examples
 
-* [Live demo]()
+* [Live demo](https://codepen.io/chiporyu/pen/GRJyodL)
 
 ## Install
 

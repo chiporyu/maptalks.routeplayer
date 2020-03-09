@@ -3,7 +3,7 @@
 The route player plugin for maptalks.js. Inspired by [maptalks.routeplayer](https://github.com/maptalks/maptalks.routeplayer) and [OL-RouteAnimate](https://github.com/Liquid-Zhangliquan/OL-RouteAnimate)
 
 
-## Examples
+## Demos
 
 * [Live demo](https://codepen.io/chiporyu/pen/GRJyodL)
 
@@ -11,17 +11,17 @@ The route player plugin for maptalks.js. Inspired by [maptalks.routeplayer](http
 
 * Install with npm: ```npm install @chiporyu/maptalks.routeplayer```
 * Use unpkg CDN: 
-  * ```https://unpkg.com/@chiporyu/dist/maptalks.routeplayer.js```,
-  * ```https://unpkg.com/@chiporyu/dist/maptalks.routeplayer.css```
+  * ```https://unpkg.com/@chiporyu/maptalks.routeplayer/dist/maptalks.routeplayer.min.js```,
+  * ```https://unpkg.com/@chiporyu/maptalks.routeplayer/dist/maptalks.routeplayer.css```
 
 ## Usage
 ```html
 <head>
-  <link rel="stylesheet" href="https://unpkg.com/@chiporyu/dist/maptalks.routeplayer.css">
+  <link rel="stylesheet" href="https://unpkg.com/@chiporyu/maptalks.routeplayer/dist/maptalks.routeplayer.css">
 </head>
 <body>
   <script type="text/javascript" src="https://unpkg.com/maptalks/dist/maptalks.min.js"></script>
-  <script type="text/javascript" src="https://unpkg.com/@chiporyu/dist/maptalks.routeplayer.js"></script>
+  <script type="text/javascript" src="https://unpkg.com/@chiporyu/maptalks.routeplayer/dist/maptalks.routeplayer.min.js"></script>
   <script>
     var player = new maptalks.VectorRoutePlayer(routes, map, options);
     player.play()

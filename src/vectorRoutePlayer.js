@@ -47,4 +47,8 @@ export default class VectorRoutePlayer extends BaseRoutePlayer{
       maptalks.INTERNAL_LAYER_PREFIX + '_v_routeplay_l_' + this.id
     ).addTo(this._map)
   }
+
+  removeLayers () {
+    this.lineLayer.remove()
+  }
 }

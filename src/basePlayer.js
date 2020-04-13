@@ -141,14 +141,15 @@ export default class BaseRoutePlayer extends maptalks.Eventable(maptalks.Class) 
   }
 
   remove() {
-    if (!this.markerLayer) {
-      return this;
-    }
     this.cancel();
-    this.markerLayer.remove();
-    this.ctl.remove();
-    delete this.markerLayer;
-    delete this.lineLayer;
+    if (this.removeLayers) {
+      this.removeLayers()
+    }
+
+    if (this.ctl) {
+      this.ctl.remove();
+    }
+    
     delete this._map;
     return this;
   }

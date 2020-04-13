@@ -1,6 +1,6 @@
 {
   "name": "@chiporyu/maptalks.routeplayer",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "The route player plugin for maptalks.js, animate with real time",
   "license": "MIT",
   "repository": {

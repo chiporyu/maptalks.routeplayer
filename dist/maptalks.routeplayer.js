@@ -1,5 +1,5 @@
 /*!
- * maptalks.routeplayer v0.1.2
+ * maptalks.routeplayer v0.1.3
  * LICENSE : MIT
  * (c) 2016-2020 maptalks.org
  */
@@ -3992,14 +3992,15 @@ var BaseRoutePlayer = function (_maptalks$Eventable) {
   };
 
   BaseRoutePlayer.prototype.remove = function remove() {
-    if (!this.markerLayer) {
-      return this;
-    }
     this.cancel();
-    this.markerLayer.remove();
-    this.ctl.remove();
-    delete this.markerLayer;
-    delete this.lineLayer;
+    if (this.removeLayers) {
+      this.removeLayers();
+    }
+
+    if (this.ctl) {
+      this.ctl.remove();
+    }
+
     delete this._map;
     return this;
   };
@@ -4165,6 +4166,10 @@ var VectorRoutePlayer = function (_BaseRoutePlayer) {
     this.lineLayer = new maptalks.VectorLayer(maptalks.INTERNAL_LAYER_PREFIX + '_v_routeplay_l_' + this.id).addTo(this._map);
   };
 
+  VectorRoutePlayer.prototype.removeLayers = function removeLayers() {
+    this.lineLayer.remove();
+  };
+
   return VectorRoutePlayer;
 }(BaseRoutePlayer);
 
@@ -4174,6 +4179,6 @@ exports.RoutePlayerControl = Control;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-typeof console !== 'undefined' && console.log('maptalks.routeplayer v0.1.2, requires maptalks@>=0.31.0.');
+typeof console !== 'undefined' && console.log('maptalks.routeplayer v0.1.3, requires maptalks@>=0.31.0.');
 
 })));
